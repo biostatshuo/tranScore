@@ -3,62 +3,53 @@
 # tranScore：A summary statistics-based gene recognition method, by integrating shared genetic information obtained from the auxiliary population under the transfer learning framework
 
 
-# Introduction
-TLegene is a R procedure for borrowing the idea of transfer learning to integrate useful genetic information available from auxiliary populationfor association analysis of complex diseases and traits. In TLegene, the identification of eGene consists of two components: the first component represents the indirect influence of the auxiliary study 
-after transfer learning, and the second component represents the direct effect of the target study.
+# Backgroubd
+tranScore is a R procedure for borrowing the idea of transfer learning to integrate useful genetic information available from auxiliary populationfor association analysis of complex diseases and traits. 
+In tranScore, the gene-based association analysis consists of two components: the first component examines the auxiliary population influence, while the second component assesses the target population impact.
 
-Specifically, let e be a n by 1 vector of gene expression level on n individuals in the target study, X is a n by p matrix for covariates, G is a n by m matrix for 
-genotypes of cis-SNPs for for a given gene in the target study, θ quantifies the association between the gene expression level and the weighted genetic score Gγ which 
-is the indirect effect of auxiliary study, b quantifies the association between gene expression level and genotypes G which is the direct effect not completely 
-interpreted by auxiliary data and α quantifies a p-vector of fixed effect sizes for clinical covariates. We relate e, Gγ, X and G by a linear mixed model:
-<p align="center">
-e= Xα + (Gγ) × θ + Gb,  b ~ N(0, τ)
-</p>
-Above, τ is the genetic variance which is the direct effect not completely interpreted by auxiliary data.
+With the increase in GWAS sample size, the number of statistically significant loci detected is also increased. However, the gene-based association studies in underrepresented populations are imminent. We developed efficient statistical methods to leverage existing data by incorporating widespread cross-ethnic genetic similarly for the same trait in auxiliary populations with larger sample sizes. However, there are fewer trait studies of underrepresented populations on how to use this shared information more effectively in association analyses.
 
-TLegene examines the association of G and Gγ with e (while controlling for X) by testing for:
-<p align="center">
-H0: θ = 0 and b = 0 <==> H0: θ = 0 and τ = 0
-</p>
-This is a joint test which requires simultaneously assessing the significance of both fixed effects and random effects: the first part of H0 evaluates the indirect 
-influence of auxiliary samples, whereas the second part assesses the direct impact of target samples. Briefly, we derive the test statistic for θ under H0: θ = 0 and τ 
-= 0 as usual, while we derive the score statistic for τ under τ = 0 but without the constraint of θ = 0. By doing this, we ensure that these two statistics are 
-independent. This strategy substantially eases the development of test statistics for the joint test. In conclusion, under this framework two asymptotically 
-independent statistics can be derived. Finally, in order to aggregate the two independent test statistics, we propose three p-value combination approaches (i.e. 
-TLegene-oScore, TLegene-aScore, and TLegene-fScore).
+In this study, we refer to major populations (e.g., EUR) as the auxiliary population and underrepresented populations (e.g., EAS) as the target population. In our application context, transfer learning is employed to enhance the statistical power of association in underrepresented populations. By borrowing this idea, we propose a new statistical method for cross-population association studies and refer to the proposed method as tranScore. We hope to discover loci with a higher probability by exploiting cross-population genetic similarities between the non-EUR and EUR populations.
 
+Unlike previous studies that analyzed individual SNP, tranScore focuses on a set of cis-SNPs within a given gene and evaluates their joint effects on the phenotype. As most individual-level GWAS data sources are protected and not publicly available due to privacy concerns, tranScore is constructed based on GWAS summary statistics. The innovation of tranScore is that it can flexibly integrate cross-population genetic similarities by modeling SNP effects in the target population as a function of SNP effects in the auxiliary population through a hierarchical model, which improves the ability to study underrepresented populations. Meanwhile, we seek to further boost the power of tranScore by aggregating multiple various types of test methods via novel P-value combination strategies.
 # Example
 ```ruby
 library(data.table)
 library(harmonicmeanp)
-source("TLegene.R")
-source("null_model_fit.R")
-source("numerical_approximation.R")
-data = read.table("data.txt",head=T)
-weights = read.table("weights.txt",head=T)
-data<-as.matrix(data)
-weights<-as.matrix(weights)
-p=dim(data)[2]-3
-result=TLegene(data,d=2,p,R=1,
-               outcome_type="Continuous",
-               weight_method= "User",
-               user_weight = weights)
+setwd("/public/home/shuozhang/fuct")
+source("tranScore.R")
+source("ACAT_function.R")
 
-po=result$pvalue[3]
-pa=result$pvalue[4]
-pf=result$pvalue[5]
+estimate=as.numeric(a[,1])
+var=as.numeric(a[,2])
+weight=as.matrix(as.numeric(a[,3]))
+ZAFR=as.numeric(a[,4])
+R=1
+p=dim(a)[1]
+
+cov.G=cov(b)
+cov.G=apply(cov.G,2,as.numeric)
+cov.G=apply(cov.G,1,as.numeric)
+
+mis=tranScore(estimate=estimate,var =var,cov=cov.G,weight=weight,R=1,p=p,regularization=FALSE)
+po=mis$pvalue[3]
+pa=mis$pvalue[4]
+pf=mis$pvalue[5]
 ph<-cbind(po,pa,pf)
 phmp<-as.vector(c(p.hmp(ph,L=length(ph))))
+pACAT<-ACAT(ph)
+
 $pvalue
 
-  pvalue.TLegene-oScore   4.93183049954382e-10 
+  pvalue.tranScore-optim    0.936118 
 
-  pvalue.TLegene-aScore   2.86890693215321e-16
+  pvalue.tranScore-adapt    0.9149943
 
-  pvalue.TLegene-fScore  2.94312008307861e-15
+  pvalue.tranScore-fisher   0.8964409
 
-  pvalue.TLegene-HMP     7.8422646713986e-16
-                             
+  pvalue.tranScore-HMP      0.7904413
+
+  pvalue.tranScore-ACAT     0.919011                        
 ```
   
 # Cite
