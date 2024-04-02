@@ -53,7 +53,7 @@ $pvalue
 ```
   
 # Cite
-Shuo Zhang<sup>$</sup>, Zhou Jiang<sup>$</sup> and Ping Zeng<sup>#</sup> (2022). Incorporating genetic similarity of auxiliary samples into eGene identification under the transfer learning framework.
+Shuo Zhang<sup>$</sup>, Ping Zeng<sup>#</sup> (2022). Improved power of association mapping for complex diseases in the East Asian population by leveraging genetic similarity of the European population.
 
 # Contact
 We are very grateful to any questions, comments, or bugs reports; and please contact Ping Zeng via zpstat@xzhmu.edu.cn.
