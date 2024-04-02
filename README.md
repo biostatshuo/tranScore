@@ -1,10 +1,10 @@
 # tranScore
 
-# TLegene：Incorporating genetic similarity of auxiliary samples into eGene identification under the transfer learning framework
+# tranScore：A summary statistics-based gene recognition method, by integrating shared genetic information obtained from the auxiliary population under the transfer learning framework
+
 
 # Introduction
-TLegene is a R procedure for borrowing the idea of transfer learning to integrate useful genetic information available from external studies for multilocus-based eGene 
-identification method. In TLegene, the identification of eGene consists of two components: the first component represents the indirect influence of the auxiliary study 
+TLegene is a R procedure for borrowing the idea of transfer learning to integrate useful genetic information available from auxiliary populationfor association analysis of complex diseases and traits. In TLegene, the identification of eGene consists of two components: the first component represents the indirect influence of the auxiliary study 
 after transfer learning, and the second component represents the direct effect of the target study.
 
 Specifically, let e be a n by 1 vector of gene expression level on n individuals in the target study, X is a n by p matrix for covariates, G is a n by m matrix for 
