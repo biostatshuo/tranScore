@@ -11,7 +11,8 @@ With the increase in GWAS sample size, the number of statistically significant l
 
 In this study, we refer to major populations (e.g., EUR) as the auxiliary population and underrepresented populations (e.g., EAS) as the target population. In our application context, transfer learning is employed to enhance the statistical power of association in underrepresented populations. By borrowing this idea, we propose a new statistical method for cross-population association studies and refer to the proposed method as tranScore. We hope to discover loci with a higher probability by exploiting cross-population genetic similarities between the non-EUR and EUR populations.
 
-Unlike previous studies that analyzed individual SNP, tranScore focuses on a set of cis-SNPs within a given gene and evaluates their joint effects on the phenotype. As most individual-level GWAS data sources are protected and not publicly available due to privacy concerns, tranScore is constructed based on GWAS summary statistics. The innovation of tranScore is that it can flexibly integrate cross-population genetic similarities by modeling SNP effects in the target population as a function of SNP effects in the auxiliary population through a hierarchical model, which improves the ability to study underrepresented populations. Meanwhile, we seek to further boost the power of tranScore by aggregating multiple various types of test methods via novel P-value combination strategies.
+Unlike previous studies analyzing individual SNPs, tranScore focuses on a set of SNPs within a given gene and evaluates their joint effects on the phenotype of interest. Particularly, the construction of tranScore is based on summary statistics, avoiding the reliance on individual-level data, thus addressing privacy concerns and data accessibility challenges, making it more widely applicable in the post-GWAS era.
+
 # Example
 ```ruby
 library(data.table)
@@ -53,7 +54,7 @@ $pvalue
 ```
   
 # Cite
-Shuo Zhang<sup>$</sup>, Ping Zeng<sup>#</sup> (2022). Improved power of association mapping for complex diseases in the East Asian population by leveraging genetic similarity of the European population.
+Shuo Zhang<sup>$</sup>, Ping Zeng<sup>#</sup> (2022). An integrative association analysis for complex diseases in underrepresented by leveraging the trans-ethnic genetic similarity.
 
 # Contact
 We are very grateful to any questions, comments, or bugs reports; and please contact Ping Zeng via zpstat@xzhmu.edu.cn.
