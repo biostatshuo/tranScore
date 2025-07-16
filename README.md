@@ -54,7 +54,7 @@ $pvalue
 ```
   
 # Cite
-Shuo Zhang<sup>$</sup>, Ping Zeng<sup>#</sup> (2022). An integrative association analysis for complex diseases in underrepresented by leveraging the trans-ethnic genetic similarity.
+Shuo Zhang$, Jike Qi$, Yuchen Jiang, Hua Lin, Xinyi Wang, Ting Wang, Hongyan Cao and Ping Zeng# (2025). An integrative association analysis for complex diseases in underrepresented by leveraging the trans-ethnic genetic similarity.
 
 # Contact
 We are very grateful to any questions, comments, or bugs reports; and please contact Ping Zeng via zpstat@xzhmu.edu.cn.
