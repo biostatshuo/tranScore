@@ -21,6 +21,8 @@ setwd("/public/home/shuozhang/fuct")
 source("tranScore.R")
 source("ACAT_function.R")
 
+a<-fread("data.csv")
+b<-fread("reference.txt")
 estimate=as.numeric(a[,1])
 var=as.numeric(a[,2])
 weight=as.matrix(as.numeric(a[,3]))
