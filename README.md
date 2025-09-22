@@ -21,7 +21,7 @@ setwd("/public/home/shuozhang/fuct")
 source("tranScore.R")
 source("ACAT_function.R")
 
-a<-fread("data.csv")
+a<-fread("data.txt") 
 b<-fread("reference.txt")
 estimate=as.numeric(a[,1])
 var=as.numeric(a[,2])
