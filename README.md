@@ -18,6 +18,7 @@ Unlike previous studies analyzing individual SNPs, tranScore focuses on a set of
 # Install missing packages
 if (!require("data.table")) install.packages("data.table")       # For fast file reading
 if (!require("harmonicmeanp")) install.packages("harmonicmeanp") # For HMP P-value combination
+
 library(data.table)
 library(harmonicmeanp)
 setwd("/public/home/shuozhang/fuct")
