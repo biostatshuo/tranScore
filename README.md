@@ -15,22 +15,25 @@ Unlike previous studies analyzing individual SNPs, tranScore focuses on a set of
 
 # Example
 ```ruby
+# Install missing packages
+if (!require("data.table")) install.packages("data.table")       # For fast file reading
+if (!require("harmonicmeanp")) install.packages("harmonicmeanp") # For HMP P-value combination
 library(data.table)
 library(harmonicmeanp)
 setwd("/public/home/shuozhang/fuct")
 source("tranScore.R")
 source("ACAT_function.R")
 
-a<-fread("data.txt") 
-b<-fread("reference.txt")
-estimate=as.numeric(a[,1])
-var=as.numeric(a[,2])
-weight=as.matrix(as.numeric(a[,3]))
-ZAFR=as.numeric(a[,4])
-R=1
-p=dim(a)[1]
+data<-fread("data.txt")  # Summary data for target genes
+LD_reference<-fread("reference.txt") # LD Reference
+estimate=as.numeric(data[,1]) # Marginal effect size of the genetic variants from the target population summary data
+var=as.numeric(data[,2]) # Variance of the genetic variants effect size from the target population summary data
+weight=as.matrix(as.numeric(data[,3])) # Weight of the genetic variants effect size from the auxiliary population’s summary data
+ZAFR=as.numeric(data[,4]) # Z-score of the genetic variants in the target population
+R=1 # Number of auxiliary populations (e.g., 1 for EUR)
+p=dim(data)[1] # Number of genetic variants in the target gene
 
-cov.G=cov(b)
+cov.G=cov(LD_reference) # Compute covariance of genotypes
 cov.G=apply(cov.G,2,as.numeric)
 cov.G=apply(cov.G,1,as.numeric)
 
