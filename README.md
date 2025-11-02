@@ -1,6 +1,6 @@
 # tranScore
 
-# tranScore：A summary statistics-based gene recognition method, by integrating shared genetic information obtained from the auxiliary population under the transfer learning framework
+A summary statistics-based gene recognition method, by integrating shared genetic information obtained from the auxiliary population under the transfer learning framework
 
 
 # Backgroubd
